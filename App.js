@@ -1,6 +1,6 @@
-import React from 'react'
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { SafeAreaProvider } from 'react-native-safe-area-context';

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-// import axios from 'axios';
 import { PRODUCT_IMAGE_MAP } from '../data/product-image-map';
 
 const initialState = {
@@ -25,11 +24,12 @@ export const productSlice = createSlice({
     },
     [fetchProducts.fulfilled]: (state, action) => {
       const { payload } = action;
-      // payload.products.forEach((product) => {
-      //   product.featuredImage =
-      //     PRODUCT_IMAGE_MAP[product.name].featuredImage;
-      //   product.images = PRODUCT_IMAGE_MAP[product.name].images;
-      // });
+      
+      payload.products.forEach((product) => {
+        product.featuredImage =
+          PRODUCT_IMAGE_MAP[product.name].featuredImage;
+        product.images = PRODUCT_IMAGE_MAP[product.name].images;
+      });
       
       state.status = 'success';
       state.products = payload.products;
@@ -44,40 +44,14 @@ export const selectStatus = (state) => state.products.status;
 export const selectFeaturedProducts = (state) =>
   state.products.products.filter((item) => item.is_featured);
 
+export const selectHeadphones = (state) =>
+  state.products.products.filter((item) => item.category === 'headphones');
+  
+export const selectEarphone = (state) =>
+  state.products.products.filter((item) => item.category === 'earphones');
+  
+export const selectSpeakers = (state) =>
+  state.products.products.filter((item) => item.category ==='speakers');
+
 export default productSlice.reducer;
 
-
-
-// export const fetchProducts = createAsyncThunk('products/fetchProducts',
-//   async () => {
-//   const res = await axios.get("https://jsonplaceholder.typicode.com/comments")
-//     return res.data;
-//   }
-// )
-
-// export const productSlice = createSlice({
-//   name: 'products',
-//   initialState:{
-//   isLoading: false,
-//   products: [],
-//   error: null,
-// },
-//   extraReducers: (builder) => {
-//     builder.addCase(fetchProducts.pending, (state) => {
-//       state.isLoading = true;
-//     });
-//     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-//       state.isLoading = false;
-//       state.products = action.payload;  
-//       state.error = null;
-//     });
-//     builder.addCase(fetchProducts.rejected, (state, action) => {
-//       state.isLoading = false;
-//       state.products = [];
-//       state.error = action.error.message;
-//     });
-//   }
-    
-// });
-
-// export default productSlice.reducer;
